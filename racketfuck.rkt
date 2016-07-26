@@ -24,6 +24,23 @@
                       #\]
                       #\,
                       #\.))
+
+;; Run loop balance check
+(define (check code balance)
+  (if (or (null? code) (< balance 0))
+      (= balance 0)
+      (check (cdr code)
+             (match (car code)
+               (#\[ (+ balance 1))
+               (#\] (- balance 1))
+               (_ balance)))))
+(if (check code 0)
+    (values)
+    (begin (print "Balance check failed, please match `[` and `]`")
+           (newline)
+           (exit)))
+
+;; Put instrunctions in vector
 (define instructions (list->vector (filter (lambda (x) (member x symbols)) code)))
 (define ins-length (vector-length instructions))
 
