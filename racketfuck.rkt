@@ -87,7 +87,7 @@
                     (run (inc insptr) memptr)))
         (#\. (begin (display (integer->char (vector-ref memory memptr)))
                     (run (inc insptr) memptr))))
-      (newline)))
+      (exit)))
 
 ;; Start interpretation
 (run 0 0)
